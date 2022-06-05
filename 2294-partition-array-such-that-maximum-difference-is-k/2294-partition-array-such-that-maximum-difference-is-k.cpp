@@ -1,19 +1,23 @@
 class Solution {
 public:
     int partitionArray(vector<int>& nums, int k) {
-        
-        sort(nums.begin(),nums.end(),greater<int>());
-        int c=0,start=nums[0];
-        
-        for(int i=1;i<nums.size();i++){
-            if(start-nums[i]>k)
+        if(nums.size()==1)
+            return 1;
+        sort(nums.begin(),nums.end());
+        int ans=1;
+        int i=1;
+        int mn=nums[0];
+        while(i<nums.size())
+        {
+            if(abs(mn-nums[i])>k)
             {
-                start = nums[i];
-                c++;
+                ans++;
+                mn=nums[i];
             }
+            i++;
         }
-        c++;
-        return c;
         
+        
+        return ans;
     }
 };
