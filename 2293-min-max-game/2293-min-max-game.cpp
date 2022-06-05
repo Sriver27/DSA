@@ -1,22 +1,26 @@
 class Solution {
+private:
+    int helper(vector<int>& nums,int start, int end, bool findMin) {
+        if(start == end)
+            return nums[start];
+        
+        // we will get the middle element 
+        int mid = start + (end-start)/2;
+        
+        //Find the minimum of the left part and right part of the array if we have to find min
+        if(findMin){
+            return min(helper(nums,start,mid,true) , helper(nums,mid+1,end,false));
+        }
+        else{
+            return max(helper(nums,start,mid,true) , helper(nums,mid+1,end,false));
+        }
+        return 0;
+    }
 public:
     int minMaxGame(vector<int>& nums) {
+        int n = nums.size();
         
-        int n= nums.size();
-        
-        if(n==1) return nums[0];
-        vector<int> nums1(n/2);
-        
-        for(int i=0;i<n/2;i++){
-            
-            if(i%2 == 0){
-                nums1[i]= min(nums[2*i], nums[2*i+1]);
-            }
-            else{
-                nums1[i]= max(nums[2*i], nums[2*i+1]);
-            }
-        }
-        int ans= minMaxGame(nums1);
-        return ans;
+        //passing true because we have to find the minimum of the complete array firstly
+        return helper(nums,0,n-1,true);
     }
 };
