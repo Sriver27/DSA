@@ -3,18 +3,17 @@ public:
     int partitionArray(vector<int>& nums, int k) {
         if(nums.size()==1)
             return 1;
-        sort(nums.begin(),nums.end());
-        int ans=1;
-        int i=1;
-        int mn=nums[0];
+        sort(nums.begin(),nums.end()); // it helps in finding the diff.
+        int ans=0;
+        int i=0;
+       
         while(i<nums.size())
         {
-            if(abs(mn-nums[i])>k)
-            {
-                ans++;
-                mn=nums[i];
-            }
-            i++;
+            int j= i;
+            
+            while(j < nums.size() && nums[j]-nums[i]<=k)  j++;//increasing subsequence size and checking if the diff. lies within k
+            ans++;//subsequence++
+            i=j; // if a particular subsequence is found then we directly skip to the element after the found subsequence
         }
         
         
