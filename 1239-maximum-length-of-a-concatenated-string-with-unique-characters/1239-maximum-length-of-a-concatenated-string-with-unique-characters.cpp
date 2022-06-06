@@ -1,54 +1,38 @@
 class Solution {
 public:
-    bool compare(vector<int> &selected,string &currString)
-{
-    vector<int> selfCheck(26,0);
-    for(int i=0;i<currString.size();i++){//checking for duplicate characters in currString
-        if(selfCheck[currString[i]-'a'] == 1) return false;
-        selfCheck[currString[i]-'a'] = 1 ;
-    }
-    for(int i=0;i<currString.size();i++){ // checking if the characters in currString has appeared earlier
-         if(selected[currString[i]-'a'] == 1) return false;
-    }
-    return true;
-}
-
-int helper(int i, vector<string> &arr,vector<int> &selected,int len){
+    //Used to map characters
+    int m[26];
     
-    //base case
-    if(i==arr.size()){
-        return len;
-    }
+    //Storing ans globally
+    int ans=0;
     
-    
-    string currString = arr[i];
-    if(compare(selected,currString) == false){ // if the characters in current string has been picked earlier or the current string itself has duplicate characters - skip it
-        return helper(i+1,arr,selected,len);
-    }
-    else{
-        //pick
-        for(int j=0;j<currString.size();j++){
-            selected[currString[j]-'a'] = 1;
+    void fun(vector<string>& v,int st,int n)
+    {
+        //Used to store temp ans upto index st in vector v.
+        int res=0;
+        for(int i=0;i<26;i++)
+        {
+            //If any character appears more than 1 time, just return and try next possibilities
+            if(m[i]>1)return;
+            if(m[i]==1)res++;
         }
-        len+=currString.size();
-        int op1 = helper(i+1,arr,selected,len);
         
-        //skip
-             for(int j=0;j<currString.size();j++){
-            selected[currString[j]-'a'] = 0;
+        //Updating ans
+        ans=max(ans,res);
+        for(int i=st;i<n;i++)
+        {
+            //Including string v[i] and then calling the function again with starting index as i+1.
+            for(char ch:v[i])m[ch-'a']++;
+            fun(v,i+1,n);
+            //After the function call excluding string v[i]
+            for(char ch:v[i])m[ch-'a']--;
         }
-         len-=currString.size();
-        int op2 = helper(i+1,arr,selected,len);
-        
-           return max(op1,op2);
     }
- 
-}
-
+    
     int maxLength(vector<string>& arr) {
-        
-         vector<int> selected(26,0);
-    return helper(0,arr,selected,0);
-        
+        memset(m,0,sizeof(m));
+        ans=0;
+        fun(arr,0,arr.size());
+        return ans;
     }
 };
