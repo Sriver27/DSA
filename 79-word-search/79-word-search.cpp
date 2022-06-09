@@ -1,19 +1,25 @@
+// Time Complexity : O(n*m*4^k)     Space Complexity : O(word.length())
+
+
 class Solution {
 public:
     bool search(int i, int j, int n, int m,vector<vector<char>> &board,string &word,int k)
     {
+        // base cases
         if(k == word.size()) return true;
         if(i<0 || j<0 || i==n || j==m || board[i][j] != word[k]) return false;
         
         char ch= board[i][j];
-        board[i][j] = '#';
+        board[i][j] = '#';// hashing the word visited, for repeatation problems
+        
+        // Recursive relations - exploring all four directions
         
         bool op1 = search(i+1,j,n,m,board,word,k+1);
         bool op2 = search(i-1,j,n,m,board,word,k+1);
         bool op3 = search(i,j+1,n,m,board,word,k+1);
         bool op4 = search(i,j-1,n,m,board,word,k+1);
         
-        board[i][j]= ch;
+        board[i][j]= ch; // backtracking
         
         return op1 || op2 || op3 || op4 ;
     }
