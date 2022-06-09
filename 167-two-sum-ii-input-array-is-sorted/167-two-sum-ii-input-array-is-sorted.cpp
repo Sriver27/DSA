@@ -4,16 +4,19 @@ public:
         
         int low = 0, high = numbers.size()-1;
         
-        while(numbers[low]+numbers[high] != target){
-            if(numbers[low]+numbers[high] < target){
-                low ++ ;
+        while(low<high){
+            if(numbers[low]+numbers[high] == target){
+               return {low+1,high+1};
+            }
+            else if(numbers[low]+ numbers[high] < target){
+                low+=1;
             }
             else{
-                high--;
+                high-=1;
             }
         }
         
-        return vector<int> ({low+1,high+1});
+        return {};
         
     }
 };
