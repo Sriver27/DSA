@@ -1,1 +1,1 @@
-​
+In checkPossible func. two-pointer approach is used to check for possible predecessor. If character at both pointer matches, we increment both pointers, otherwise we increment just the first pointer. And if they reach the end simultaneously , then chain is possible
