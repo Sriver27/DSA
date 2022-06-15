@@ -2,9 +2,9 @@ class Solution {
 public:
     bool isPowerOfTwo(int n) {
         
-         bitset<64>b(n);//as in power of 2 only 1 bit is set
-             if(b.count()==1) return true;// count no of set bit
-             else    return false;
+          if(n == 1 || n == 2) return true;
+        if(n%2 == 1 || n == 0) return false;
+        return isPowerOfTwo(n/2);
        
         
     }
