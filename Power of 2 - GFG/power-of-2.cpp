@@ -12,10 +12,10 @@ class Solution{
     public:
     // Function to check if given number n is a power of two.
     bool isPowerofTwo(long long n){
-           bitset<64>b(n);//as in power of 2 only 1 bit is set
-             if(b.count()==1) return true;// count no of set bit
-             else    return false;
-       }// code using stl c++
+        if(n == 1 || n == 2) return true;
+        if(n%2 == 1 || n == 0) return false;
+        return isPowerofTwo(n/2);
+    } 
 };
 
 // { Driver Code Starts.
