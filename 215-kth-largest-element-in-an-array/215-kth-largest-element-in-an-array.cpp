@@ -1,28 +1,36 @@
+//Here we find that element which has exactly k + 1 elements (including itself) lesser to it.
 class Solution {
 public:
-    int kth_Largest(map<int,int> m, int k){
-        int freq = 0;
-	for (auto it = m.begin(); it != m.end(); it++) {
-		freq += (it->second); // adding the frequencies of
-							// each element
-		if (freq >= k) // if at any point frequency becomes
-					// greater than or equal to k then
-					// return that element
-		{
-			return it->first;
-		}
-	}
-	return -1; // returning -1 if k>size of the array which
-			// is an impossible scenario
-    }
-    int findKthLargest(vector<int>& nums, int k) {
-        map<int,int> m;
-        
-        for(int i =0;i<nums.size();i++){
-            m[nums[i]]+=1;
+
+    int check(vector<int>& arr,int& x, int& k){
+        int cnt = 0;
+        for(int& i : arr){
+            if(i < x)   cnt++;
         }
         
-        int ans = kth_Largest(m, nums.size()-k+1);
+        return cnt <= k;
+    }
+    
+    int findKthLargest(vector<int>& arr, int k) {
+        
+        //Find low and high that is the range where our answer can lie. 
+        int lo = *min_element(arr.begin(),arr.end()),
+            hi = *max_element(arr.begin(),arr.end()), ans = 0;
+        
+        k = arr.size() - k;
+        while(lo <= hi){
+            int mid = lo + (hi - lo)/2;
+            if(check(arr,mid,k)){
+                
+                //If the selected element which would be mid has less than k elements lesser to it then increase the number that is low = mid + 1.
+                lo = mid + 1;
+                ans = mid;
+            }
+            else{
+                // Decrement the number and try to find a better answer
+                hi = mid - 1;
+            }
+        }
         
         return ans;
     }
