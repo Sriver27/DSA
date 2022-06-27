@@ -9,14 +9,10 @@ All A[i] with i % 3 == n % 3, we can get it for free.*/
 class Solution {
 public:
     int minimumCost(vector<int>& cost) {
-        
-        sort(cost.begin(), cost.end()); int minCost = 0, n = cost.size();
-        
-        for(int i = 0; i< cost.size(); i++){
-            if(i % 3 != n % 3) minCost+= cost[i];
-        }
-        
-        return minCost;
-        
-    }
+    int res = 0;
+    sort(rbegin(cost), rend(cost));
+    for (int i = 0; i < cost.size(); ++i)
+        res += i % 3 == 2 ? 0 : cost[i]; // skipping third candy cost if (i % 3) == 2
+    return res;
+}
 };
