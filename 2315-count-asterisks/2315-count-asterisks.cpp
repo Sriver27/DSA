@@ -1,13 +1,10 @@
-class Solution {
-    
-public :
-    
+class Solution{
+    public:
 int countAsterisks(string s) {
-    int res = 0, pipes = 0;
-    for (auto ch : s) {
-        pipes += ch == '|';
-        res += ch == '*' && pipes % 2 == 0; 
+        int res = 0, sign = 1;
+        for (char& c : s)
+            if ((sign ^= c == '|') && c == '*')
+                res++;
+        return res;
     }
-    return res;
-}
 };
