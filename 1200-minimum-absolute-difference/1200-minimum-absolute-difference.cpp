@@ -2,19 +2,20 @@
 
 class Solution {
 public:
-    vector<vector<int>> minimumAbsDifference(vector<int>& A) {
-        sort(begin(A), end(A));
-        vector<vector<int>> ans;
-        int minDiff = INT_MAX, curDiff;
-        for(int i = 1; i < size(A); i++) {
-            auto [a, b] = minmax(A[i], A[i-1]);   // a and b will hold min and max amongst A[i] and A[j]
-            curDiff = b - a;
-            if(curDiff == minDiff) ans.push_back({a, b});       // push if equal to MAD found till now
-            else if(curDiff < minDiff) {     // if current diff < MAD, update it and only keep current pair in ans
-                minDiff = curDiff;
-                ans = {{a, b}};
-            }
+    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
+        sort(arr.begin(),arr.end());   //after sorting the difference between consecutive elements becomes smallest
+        int min=99999999;
+        for(int i=0;i<arr.size()-1;i++)
+        {
+            if((arr[i+1]-arr[i])<min)
+                min=(arr[i+1]-arr[i]);
         }
-        return ans;
+        vector<vector<int>>v;
+        for(int i=0;i<arr.size()-1;i++)
+        {
+                if((arr[i+1]-arr[i])==min)     //checking for pair with difference equal to minimum
+                    v.push_back({arr[i],arr[i+1]});
+        }
+        return v;
     }
 };
