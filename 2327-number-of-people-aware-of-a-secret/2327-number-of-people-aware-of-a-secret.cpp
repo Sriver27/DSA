@@ -1,35 +1,27 @@
-#define ll long long int
-ll m=1e9+7;
 class Solution {
+    long MOD = 1e9 + 7;
 public:
-    #define ll long long
     int peopleAwareOfSecret(int n, int delay, int forget) {
-        
-        vector<ll> v(n+1,0);//v[i] will store how many person knows the secret on ith day
-        
-        
-        
-        v[0] = 1; //only 1 person knows the secret on day 1
-        int mod = 1000000007;
-        for(int i =0 ;i < n;i ++)// for each day (i) the persons who knows the secret on that day will start spreading it from (i+delay)th day
-        {
-            if(v[i] == 0)//no one knows a secret
-                continue;
-            for(int j = i + delay;j < n && (j-i)  < forget;j++) // it start spreading the secret on  (i+delay)th day till it forgets after (i+forget)th day
-            {
-                v[j] += v[i];
-                v[j] = v[j]%mod;
+        vector<long> day(1001, 0); // represents the number of people who know the secret on day i
+        int d = 1;  
+        day[d] = 1; // day 1 has 1 person who knows the secret
+
+        // iterate through days
+        while(d <= n) {
+            // as 1 person can tell secret to only 1 person per day
+            // so persons on day i  can tell  secreat after delay days untill they forget it
+            // so we simply add the number of people who know the secret on day d to all new days
+            for(int j = d + delay; j <= min(d + forget - 1, n); j++) {
+                day[j] = (day[j] + day[d]) % MOD;
             }
+            d++;
         }
-        
-        ll ans = 0;
-     
-        for(int i = n-1;i >= n-forget;i--)// taking last (forget-1) persons becaause the persons before that would have forgotten till nth day
-        {
-            ans += v[i];
-            ans = ans%mod;
+        long res = 0;
+        // At last day only  last '''forget''' days persons can remember the secret
+		// so simply add them
+        for(int i = max(n - forget + 1, 0); i <= n; i++) {
+            res = (res + day[i]) % MOD;
         }
-        
-        return ans;
+        return res;
     }
 };
