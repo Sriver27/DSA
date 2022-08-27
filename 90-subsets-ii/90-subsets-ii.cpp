@@ -14,7 +14,7 @@ public:
             subset.pop_back();
         
         //skip
-        while(i+1<v.size() && v[i]==v[i+1]) i++;
+        while(i+1<v.size() && v[i]==v[i+1]) i++; // till we occur with the duplicate element we have to ignore it
           helper( i+1,v, n,subset,powerset);
     }
         
