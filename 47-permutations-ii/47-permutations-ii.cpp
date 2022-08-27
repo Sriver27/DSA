@@ -9,6 +9,7 @@ public:
             if (i != k && num[i] == num[k]) continue;
             swap(num[i], num[k]);
             recursion(num, i+1, j, res);
+            
         }
     }
     vector<vector<int> > permuteUnique(vector<int> &num) {
