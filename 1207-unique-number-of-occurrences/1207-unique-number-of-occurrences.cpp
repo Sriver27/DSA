@@ -3,15 +3,16 @@ public:
         
         bool uniqueOccurrences(vector<int>& arr) {
             
-            unordered_map<int, int> m;
+            unordered_map<int, int> mp;
             unordered_set<int> s;
             
-            for (auto n : arr) ++m[n];
+            for (auto n : arr) ++mp[n];
             
-            for (auto& p : m)
-                if(!s.insert(p.second).second) return false; // returns false in case if element is already present
+            for (auto& p : mp) s.insert(p.second);
+                
             
-            return true;
+            
+            return (mp.size() == s.size())? true:false;
     }
         
     
