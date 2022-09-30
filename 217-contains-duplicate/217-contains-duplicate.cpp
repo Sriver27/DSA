@@ -31,9 +31,26 @@ public:
     
     
     
-    bool containsDuplicate(vector<int>& nums) {
-	unordered_set<int> nums_set(nums.begin(), nums.end());
-	return nums_set.size() != nums.size();
-}
+//     bool containsDuplicate(vector<int>& nums) {
+// 	unordered_set<int> nums_set(nums.begin(), nums.end());
+// 	return nums_set.size() != nums.size();
+// }
+    
+    
+    
+    bool containsDuplicate(vector<int>& nums)
+    {
+        unordered_map<int,bool> mp;
+        
+        for(auto x: nums){
+            
+            if(mp.find(x) != mp.end())
+                return true;
+            
+            mp.insert(make_pair(x,true)); 
+        }
+        return false;
+        
+    }
 
 };
