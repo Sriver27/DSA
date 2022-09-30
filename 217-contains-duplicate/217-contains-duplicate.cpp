@@ -1,18 +1,20 @@
 class Solution {
 public:
-    bool containsDuplicate(vector<int>& nums) {
+//     bool containsDuplicate(vector<int>& nums) {
         
-        unordered_map<int,int> mp;
+//         unordered_map<int,int> mp;
         
-        for(int i = 0; i < nums.size(); i++) mp[nums[i]]++;
+//         for(int i = 0; i < nums.size(); i++) mp[nums[i]]++;
         
-        for(auto it : mp){
+//         for(auto it : mp){
             
-            if(it.second > 1) return true;
+//             if(it.second > 1) return true;
             
-        }
-        return false;
-    }
+//         }
+//         return false;
+//     }
+    
+    
     
 //     bool containsDuplicate(vector<int>& nums) {
         
@@ -26,5 +28,12 @@ public:
 //     }
 //     return false;
 // }
+    
+    
+    
+    bool containsDuplicate(vector<int>& nums) {
+	unordered_set<int> nums_set(nums.begin(), nums.end());
+	return nums_set.size() != nums.size();
+}
 
 };
