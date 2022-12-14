@@ -6,7 +6,7 @@ public:
         
         for(int i = 0; i < matrix.size(); i++)
         {
-            for(int j = i+1 ; j < matrix[i].size(); j++)
+            for(int j = 0 ; j < i; j++)
             {
                 swap(matrix[i][j], matrix[j][i]);
             }
