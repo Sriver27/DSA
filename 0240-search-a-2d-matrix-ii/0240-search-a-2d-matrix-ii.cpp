@@ -17,8 +17,6 @@ public:
             if(element < target) rowIndex++;
             
             else colIndex--;
-            
-            
         }
         
         return 0;
