@@ -35,10 +35,9 @@ public:
         }
         
         //Step-2: Recursion dekhlega aage ka part
-        if(nextNode != NULL)
-        {
-            head->next = reverseKGroup(nextNode,k);
-        }
+       
+            head->next = _reverseKGroup(nextNode,size-k,k);
+        
         
         //REturn head of reversed list
         return prev;
