@@ -10,7 +10,10 @@
  */
 class Solution {
 public:
-    int getLength(ListNode* head){
+    
+// BRUTE FORCE ------------------------------
+    
+   /* int getLength(ListNode* head){
     ListNode* temp = head;
     int cnt = 0;
     while(temp != NULL){
@@ -47,7 +50,20 @@ void deleteNode(int pos, ListNode* &head){
         
      deleteNode(len/2,head);
         
-        return head;
-        
+        return head;   } */
+    
+    
+    // Using Fast and Slow pointers ---------------------------------
+    
+    ListNode* deleteMiddle(ListNode* head) {
+    if (head->next == nullptr)
+        return nullptr;
+    auto slow = head, fast = head->next->next;
+    while (fast != nullptr && fast->next != nullptr) {
+        fast = fast->next->next;
+        slow = slow->next;
     }
+    slow->next = slow->next->next;
+    return head;
+    }   
 };
