@@ -10,6 +10,17 @@
  */
 class Solution {
 public:
+    ListNode* reverse1(ListNode* head)
+    {
+        if(head == NULL || head->next == NULL) return head;
+        
+        ListNode* tempHead = reverse1(head->next);
+        
+        head->next->next = head;
+        head->next = NULL;
+        
+        return tempHead;
+    }
     void reverse(ListNode* &head, ListNode* &curr, ListNode* &prev)
     {
         //base case
@@ -25,11 +36,14 @@ public:
     }
     ListNode* reverseList(ListNode* head) {
         
-        // RECURSIVE ----------------
-        ListNode* curr = head;
+        // RECURSIVE_2 -------------
+        return reverse1(head);
+        
+        // RECURSIVE_1 ----------------
+       /* ListNode* curr = head;
         ListNode* prev = NULL;
         reverse(head,curr,prev);
-        return head;
+        return head; */
        
        // ITERATIVE--------------
         /* ListNode* prev = NULL;
