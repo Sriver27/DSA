@@ -10,59 +10,41 @@
  */
 class Solution {
 public:
-    ListNode* middleNode(ListNode* head) {
-        /*Jab tak fast pointer end mein pahuchega tab tak slow mid tak hi pahuchega kyoki, fast pointer head node se start kar 2x mei move kar rh hai and slow vhi sirf 1x mein*/
-        
-        if(head == NULL) return head;
-        
-        if(head->next == NULL) return head; // if the list has just 1 node, then vhi na mid hoga
-        ListNode* fast = head;
-        ListNode* slow = head;
-        
-        while(fast != NULL && fast->next != NULL){
-            fast = fast->next->next;
-            slow = slow->next;
-        }
-        
-        return slow;
-        
-    }
-    
-    ListNode* reverseLL(ListNode* &head)
-{
-    ListNode* prev = NULL;
-    ListNode* curr = head;
-    ListNode* nextNode = NULL;
-
-    while(curr != NULL)
+    void reverse(ListNode* &head, ListNode* &curr, ListNode* &prev)
     {
-        nextNode = curr->next;
-        curr->next = prev;
-        prev = curr;
-        curr = nextNode;
-    }
-    return prev;
-}
-    
-    bool isPalindrome(ListNode* head) {
-        
-        if(head == NULL || head->next == NULL) return true;
-        
-        ListNode* mid = middleNode(head); //cout<<mid<<endl;
-        
-        ListNode* last = reverseLL(mid);
-        
-        ListNode* curr = head;
-        
-        while(last != NULL){
-            
-            if(last->val != curr->val) return false;
-            else{
-                last=last->next;
-                curr=curr->next;
-            }
+        //base case
+        if(curr == NULL)
+        {
+            head = prev;
+            return;
         }
-        return true;
+        
+        ListNode* forward = curr->next;
+        reverse(head,forward,curr);
+        curr->next = prev;
+    }
+    ListNode* reverseList(ListNode* head) {
+        
+        // RECURSIVE ----------------
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+        reverse(head,curr,prev);
+        return head;
+       
+       // ITERATIVE--------------
+        /* ListNode* prev = NULL;
+        ListNode* curr = head;
+        ListNode* nextNode = NULL;
+        
+        while(curr != NULL){
+            nextNode = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        
+        return prev;
+        */
         
     }
 };
