@@ -8,9 +8,10 @@
  */
 class Solution {
 public:
+    
     ListNode *detectCycle(ListNode *head) {
         
-         ListNode* curr = head;
+      /*   ListNode* curr = head;
         map<ListNode*,bool> visit;
         
         while(curr != NULL)
@@ -22,7 +23,23 @@ public:
             curr= curr->next;
         }
         
-        return NULL;
+        return NULL; */
         
+       ListNode* slow = head;
+        ListNode* fast = head;
+        
+        while(fast != NULL && fast->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow == fast){
+                slow = head;
+                while(slow != fast){
+                    slow = slow->next;
+                    fast = fast->next;
+                }
+                return slow;
+            }
+        }
+        return NULL;
     }
 };
