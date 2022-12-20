@@ -9,6 +9,8 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
+      
+        /*Approach 1 : using fast and slow pointer-----------
         
         // if head is NULL then return false;
         if(head == NULL)
@@ -33,6 +35,21 @@ public:
         }
         
 		// if traversal reaches to NULL this means no cycle.
+        return false; */
+        
+        // Approach 2 : using map
+        
+        ListNode* curr = head;
+        map<ListNode*,bool> visit;
+        
+        while(curr != NULL)
+        {
+            if(visit.find(curr) != visit.end()) return true;
+            
+            else visit[curr]=true;
+            
+            curr= curr->next;
+        }
         return false;
         
     }
