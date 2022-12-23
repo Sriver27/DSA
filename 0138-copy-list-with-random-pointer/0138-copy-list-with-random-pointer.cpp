@@ -32,7 +32,7 @@ public:
     }
     Node* copyRandomList(Node* head) {
         
-        // step 1: create a clone list
+    /*    // step 1: create a clone list
         Node* cloneHead = NULL;
         Node* cloneTail = NULL;
         
@@ -67,7 +67,65 @@ public:
             originalNode = originalNode->next;
         }
         
-        return cloneHead;
+        return cloneHead;    */
         
+        
+        // step 1: create a clone list
+        Node* cloneHead = NULL;
+        Node* cloneTail = NULL;
+        
+        Node* temp = head;
+        while(temp!=NULL)
+        {
+            insertAtTail(cloneHead,cloneTail,temp->val);
+            temp = temp->next;
+        }
+    
+        // step 2: Add cloneNodes in between original list
+        Node* originalNode = head;
+        Node* cloneNode = cloneHead;
+        
+        while(originalNode != NULL && cloneNode != NULL)
+        {
+            Node* next = originalNode->next;
+            originalNode->next = cloneNode;
+            originalNode = next;
+            
+            next = cloneNode->next;
+            cloneNode->next = originalNode;
+            cloneNode = next;
+        }
+        
+        // step 3: copy random pointer
+         temp = head;
+        
+        while(temp!=NULL)
+        {
+            if(temp->next != NULL)
+            {
+                temp->next->random = temp->random ? temp->random->next : temp->random;
+            }
+            temp = temp->next->next;
+        }
+        
+        // step 4: revert changes done in step 2
+        originalNode = head;
+        cloneNode = cloneHead;
+        
+         while(originalNode != NULL && cloneNode != NULL)
+        {
+            originalNode->next = cloneNode->next;
+             originalNode = originalNode->next;
+             
+             if(originalNode != NULL)
+             {
+                  cloneNode->next = originalNode->next;
+             }
+            
+             cloneNode = cloneNode->next;
+        }
+        
+        // step 5: return ans
+        return cloneHead;
     }
 };
