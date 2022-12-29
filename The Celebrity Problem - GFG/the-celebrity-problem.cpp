@@ -49,7 +49,6 @@ class Solution
         element */
         /* celebrity knows no one so the celebrity column should have all 0's */
         
-        bool rowCheck = false;
         int zeroCount = 0;
         
         for(int i = 0; i<n; i++)
@@ -57,10 +56,9 @@ class Solution
             if(M[candidate][i] == 0) zeroCount++;
         }
         
-        if(zeroCount == n) rowCheck = true;
+        if(zeroCount != n) return -1;
         
         
-        bool colCheck = false;
         int oneCount = 0;
         
         for(int i = 0; i<n; i++)
@@ -68,11 +66,9 @@ class Solution
             if(M[i][candidate] == 1) oneCount++;
         }
         
-        if(oneCount == n-1) colCheck = true;
+        if(oneCount != n-1) return -1;
         
-        if(rowCheck == true && colCheck == true) return candidate;
-        
-        else return -1;
+        return candidate;
     }
 };
 
