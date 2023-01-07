@@ -19,8 +19,8 @@ public:
             return p;
         }
         
-        pair<int,int> left = isBalancedFast(root->left);
-        pair<int,int> right = isBalancedFast(root->right);
+        pair<bool,int> left = isBalancedFast(root->left);
+        pair<bool,int> right = isBalancedFast(root->right);
         
         
         bool leftAns = left.first;
