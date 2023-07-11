@@ -10,7 +10,7 @@ class Solution {
 public:
     bool hasCycle(ListNode *head) {
       
-        /*Approach 1 : using fast and slow pointer-----------
+        //Approach 1 : using fast and slow pointer-----------
         
         // if head is NULL then return false;
         if(head == NULL)
@@ -35,11 +35,11 @@ public:
         }
         
 		// if traversal reaches to NULL this means no cycle.
-        return false; */
+        return false;
         
         // Approach 2 : using map
         
-        ListNode* curr = head;
+        /*ListNode* curr = head;
         map<ListNode*,bool> visit;
         
         while(curr != NULL)
@@ -50,7 +50,7 @@ public:
             
             curr= curr->next;
         }
-        return false;
+        return false; */
         
     }
 };
