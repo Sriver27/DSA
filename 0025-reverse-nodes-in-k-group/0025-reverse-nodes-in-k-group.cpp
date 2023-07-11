@@ -10,40 +10,35 @@
  */
 class Solution {
 public:
-    
     ListNode* _reverseKGroup(ListNode* head, int size, int k)
     {
+        // base cases
+        if(head == NULL || size < k) return head; /* size : LL size, k: group size, and if size<k there is no point. */
         
-        //base case
-        if(head == NULL || size < k) return head;
-        
-        //Step-1 : Reverse first k nodes
+        // reverse first k nodes
         ListNode* prev = NULL;
         ListNode* curr = head;
         ListNode* nextNode = NULL;
+        int count = 1;
         
-        int count = 0;
-        
-        while(curr != NULL && count < k)
+        while(curr != NULL && count <= k)
         {
-            nextNode = curr->next;
-            curr->next=prev;
+            nextNode = curr-> next;
+            curr-> next = prev;
             prev = curr;
             curr = nextNode;
-            
             count++;
         }
         
-        //Step-2: Recursion dekhlega aage ka part
-       
-            head->next = _reverseKGroup(nextNode,size-k,k);
+        // aage ka part recursion dekh lega
+        if(nextNode != NULL)
+        {
+            head->next = _reverseKGroup(nextNode, size-k, k );
+        }
         
-        
-        //REturn head of reversed list
         return prev;
         
     }
-    
     int getLength(ListNode* head)
     {
         ListNode* temp = head;
@@ -54,12 +49,10 @@ public:
         }
         return cnt;
     }
-    
     ListNode* reverseKGroup(ListNode* head, int k) {
         
         int size = getLength(head);
-        
-        return _reverseKGroup(head,size,k);
+        return _reverseKGroup(head, size, k);
         
     }
 };
