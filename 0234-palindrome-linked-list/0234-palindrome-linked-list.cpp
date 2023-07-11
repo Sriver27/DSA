@@ -10,41 +10,60 @@
  */
 class Solution {
 public:
-    void reverse(ListNode* &head, ListNode* &curr, ListNode* &prev)
-    {
-        //base case
-        if(curr == NULL)
-        {
-            head = prev;
-            return;
-        }
-        
-        ListNode* forward = curr->next;
-        reverse(head,forward,curr);
-        curr->next = prev;
-    }
+    
     ListNode* reverseList(ListNode* head) {
         
-        // RECURSIVE ----------------
-        ListNode* curr = head;
+        if(head == NULL || head->next == NULL) return head;
+        
         ListNode* prev = NULL;
-        reverse(head,curr,prev);
-        return head;
-       
-       // ITERATIVE--------------
-        /* ListNode* prev = NULL;
         ListNode* curr = head;
         ListNode* nextNode = NULL;
         
-        while(curr != NULL){
-            nextNode = curr->next;
-            curr->next = prev;
+        while(curr != NULL)
+        {
+            nextNode = curr -> next;
+            curr-> next = prev;
             prev = curr;
             curr = nextNode;
         }
         
         return prev;
-        */
+        
+    }
+    
+    ListNode* middleNode(ListNode* head)
+    {
+        if(head == NULL || head->next == NULL) return head;
+        
+        ListNode* fast = head;
+        ListNode* slow = head;
+        
+        while(fast != NULL && fast->next != NULL)
+        {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        
+        return slow;
+    }
+    bool isPalindrome(ListNode* head) {
+        
+        if(head == NULL || head -> next == NULL) return true;
+        
+        ListNode* middle = middleNode(head);
+        ListNode* last = reverseList(middle);
+        
+        ListNode* curr = head;
+        
+        while(last != NULL)
+        {
+            if(last->val != curr->val) return false;
+            
+            last = last->next;
+            curr = curr->next;
+        }
+        
+        return true;
         
     }
 };
