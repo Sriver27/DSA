@@ -12,32 +12,33 @@ class Solution {
 public:
     ListNode* rotateRight(ListNode* head, int k) {
         
-        if(head == NULL || head->next == NULL||k==0) return head;
+        //base cases
+        if(head == NULL || head->next == NULL || k == 0) return head;
         
-        ListNode* node = head;
-        int size =1;
+        ListNode* temp = head;
+        int size = 1;
         
-        while(node->next != NULL)
+        while(temp->next != NULL)
         {
             size++;
-            node = node->next;
+            temp = temp->next;
         }
         
-        //loop the list
-        node->next=head;
+        // handle size
+        k = k % size;
+        // Loop kardena h....
+        temp-> next = head;
         
-        //handle the case of k>size
-        k = k%size;
-        
-        //find the node to break the loop at
         while(--size >= k)
         {
-            node=node->next;
+            temp = temp->next;
         }
         
-        ListNode* first = node->next;
-        node->next=NULL;
+        ListNode* first = temp->next; /* Yahi toh first node hai hamare rotated list ki */
+        temp->next = NULL;
+        
         
         return first;
+        
     }
 };
