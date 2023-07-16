@@ -19,16 +19,16 @@ public:
         {
             if(head->next != NULL && head->val == head->next->val)
             {
-                //skip the nodes whose values are equal to head
                 while(head->next != NULL && head->val == head->next->val)
-                    head = head->next;
+                {
+                    head = head -> next;
+                }
                 
                 prev->next = head->next;
             }
-            else{
-                prev = prev->next;
-            }
-            head = head->next;
+            
+            else prev = prev->next;
+            head = head -> next;
         }
         
         return dummy->next;
